@@ -1,0 +1,27 @@
+/* upload */
+.conMid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.uploadInput {
+    height: 300px;
+    width: 100%;
+    border-radius: 34px;
+    box-shadow: 0 11px 34px 0 rgb(0 0 0 / 10%);
+}
+
+.formContainer {
+    width: 100%;
+}
+
+.imgContainer {
+    max-height: 300px;
+}
+
+.pageContent {
+    margin-top: 120px;
+}

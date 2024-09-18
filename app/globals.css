@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --font-color: 0, 0, 0;
+    /*--foreground-rgb: 255, 255, 255;*/
+    --background-rgb: 246, 248, 252;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --font-color: 255, 255, 255;
+        /*--foreground-rgb: 40, 41, 42;*/
+        --background-rgb: 24, 24, 27;
+    }
+}
+
+body {
+    color: rgb(var(--font-color));
+    background: rgb(var(--background-rgb));
+    min-height: 100vh;
+}
+
+@layer utilities {
+    .text-balance {
+        /*text-wrap: balance;*/
+    }
+}
+
+.StatusBarIcon {
+    background-color: #252525;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    font-size: 10px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.con-mid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-tab-1 {
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0), rgba(15, 54, 195, 0.1));
+    border: 1px solid rgba(15, 54, 195, 1);
+    color: rgb(173, 188, 255);
+    font-size: 0.9rem;
+}
+
+.dashboard-tab-2 {
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0), rgba(78, 0, 152, 0.1));
+    border: 1px solid rgb(107, 0, 206);
+    color: rgb(213, 168, 255);
+    font-size: 0.9rem;
+}
+
+.dashboard-tab-3 {
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0), rgba(13, 75, 15, 0.1));
+    border: 1px solid rgba(13, 75, 15, 1);
+    color: rgb(152, 255, 154);
+    font-size: 0.9rem;
+}
+
+.add-project-tab {
+    background-color: #131315;
+    border: 1px solid rgb(59, 59, 59);
+    color: rgb(210, 210, 210);
+    font-size: 0.9rem;
+}
+
+.project-tab {
+    border: 1px solid rgb(59, 59, 59);
+    color: rgb(210, 210, 210);
+    font-size: 0.9rem;
+}
+
+.panel-view {
+    width: calc(100% - 330px);
+}
+
+@media screen and (max-width: 768px) {
+    .panel-view {
+        width: 91.5%;
+    }
+}

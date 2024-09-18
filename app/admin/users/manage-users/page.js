@@ -1,0 +1,377 @@
+
+'use client';
+// Importing modules
+import Table from "@/app/components/Table";
+import React, {useCallback, useEffect} from "react";
+
+import {useDisclosure} from "@nextui-org/react";
+import EditWebpageForm from "@/app/components/forms/webpages/EditWebpageForm";
+import {message} from "antd";
+import {
+    deleteUser,
+    deleteUsersBulk,
+    getUsers,
+    getUsersByDatetime,
+    getUsersByDatetimeCount,
+    getUsersByStatus,
+    getUsersByStatusCount,
+    getUsersCount,
+    updateUsersStatus,
+    updateUsersStatusBulk
+} from "@/services/UserService";
+
+// User component
+export default function Users() {
+
+    // ----------------------- DEFAULT COLUMNS -------------------------
+    // default columns
+    const dateColumn = "datetime" // default date column
+    const sortColumn = {column: "id", direction: "ascending"} // default sort column
+
+    // ----------------------- MESSAGE ------------------------- (NO NEED OF CHANGING)
+    // message
+    const [messageApi, contextHolder] = message.useMessage();
+    const headerMessage = (type, message) => {
+        messageApi.open({
+            type: type,
+            content: message,
+        });
+    }
+
+    // ----------------------- STATES -------------------------
+    // states
+    const [searchFieldValue, setSearchFieldValue] = React.useState("");
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [data, setData] = React.useState([]);
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const [pagesCount, setPagesCount] = React.useState(0);
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
+    const [searchColumn, setSearchColumn] = React.useState(sortColumn.column); // default search column
+
+    // components // TODO: Change the following components
+    const components = {
+        status: true, // status component
+        columns: true, // columns component
+        refresh: true, // refresh component
+        bulk_actions: true, // bulk actions component
+        all: true, // all components
+        today: true, // today component
+        yesterday: true, // yesterday component
+        search: true, // search component
+        date_range: true, // date range component
+        export: true, // export component
+    }
+    // ----------------------- COLUMNS -------------------------
+    // columns
+    const columns = [
+        {name: "ID", uid: "id", sortable: true, type: "text"},
+        {name: "FIRST NAME", uid: "first_name", sortable: true, type: "text"},
+        {name: "LAST NAME", uid: "last_name", sortable: true, type: "text"},
+        {name: "EMAIL", uid: "email", sortable: true, type: "text"},
+        {name: "PHONE", uid: "phone", sortable: false, type: "text"},
+        {name: "STATUS", uid: "status", sortable: false, type: "status"},
+        {name: "CHANGE STATUS", uid: "statusButtons", sortable: false, type: "statusButtons"},
+        {name: "INITIAL DATE", uid: "init_date", sortable: false, type: "datetime"},
+        {name: "ACTIONS", uid: "menu", sortable: false, type: "menu"},
+        // all usable types: text, twoText, datetime, label, status, statusButtons, buttons, menu, copy, icon, iconText, iconTwoText
+    ];
+
+    // initially visible columns
+    const init_cols = [
+        "first_name",
+        "last_name",
+        "email",
+        "init_date",
+        "status",
+        "statusButtons",
+        "menu"
+    ];
+
+    // action buttons functions
+    const deleteButton = (id) => { // delete button function // TODO: Change the following function
+        // not used here
+        // console.log("delete: " + id);
+    }
+
+    // action buttons
+    const actionButtons = [
+        {name: "Delete", text: "Delete", icon: "", type: "danger", function: deleteButton},
+    ];
+
+    // ----------------------- BUTTONS -------------------------
+
+    // menu buttons (3 dots button)
+    // menu button functions
+    const deleteMenuButton = (id) => { // delete button function
+
+        // delete function
+        deleteUser(id).then(() => {
+            refreshData("success", "Deleted");
+        }).catch((error) => {
+            headerMessage("error", error.response.data.error);
+        });
+
+    }
+
+    // menu buttons
+    const menuButtons = [
+        {name: "Delete", text: "Delete", function: deleteMenuButton},
+    ];
+
+
+    // status options (status of the data and buttons to change the status)
+    /***
+     * 1. To show status as a label, first you have to add a column with the type of "status"
+     * 1. To use following status button set (to change the status), then you have to add a column with the type of "statusButtons"
+     * 2. Not compulsory to use, you can either use or ignore
+     * 3. You can define button functions first, which describes what happens when clicked
+     * 5. Change the button names, texts, icons, types and functions
+     * 6. You can add more status options
+     ***/
+
+        // update status button function // TODO: Change the following function
+    const updateStatusButton = (id, status) => {
+
+            // update status function
+            updateUsersStatus(id, status).then(() => {
+                refreshData("success", "Updated");
+            }).catch((error) => {
+                headerMessage("error", error.response.data.error);
+            });
+
+        }
+
+    // status options
+    const statusOptions = [
+        {
+            name: "Offline", // status name
+            uid: 0, // status id (the value in the database)
+            type: "danger", // status type (color) ["", primary, secondary, danger, warning, success]
+            button: true, // if you want to show a button to change the status
+            currentStatus: [1], // button showing status, ex: if currently status is 1, then the button will be shown | can use [1,2,...] for multiple statuses
+            function: updateStatusButton, // function to change the status
+
+            // icon
+            icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                       stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                      d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+            </svg>
+        },
+        {
+            name: "Active", // status name
+            uid: 1, // status id (the value in the database)
+            type: "primary", // status type (color) [danger, warning, success, primary]
+            button: true, // if you want to show a button to change the status
+            currentStatus: [0], // button showing status, ex: if currently status is 1, then the button will be shown | can use [1,2,...] for multiple statuses
+            function: updateStatusButton, // function to change the status
+
+            // icon
+            icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                       stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+            </svg>
+        }
+
+    ]
+
+    // ----------------------- BULK ACTION FUNCTIONS -------------------------
+    // update status bulk function
+    const updateStatusBulk = (ids, status) => {
+
+        // update status bulk function // TODO: Change the following function
+        updateUsersStatusBulk(ids, status).then(() => {
+            refreshData("success", "Updated");
+        }).catch((error) => {
+            headerMessage("error", error.response.data.error);
+        });
+
+    };
+
+    // handle delete bulk function
+    const handleUpdateStatusBulk = (selectedKeys, status) => {
+        if (selectedKeys === 'all') { // if all items are selected
+            updateStatusBulk(data.map(item => item.id), status);
+        } else {
+            updateStatusBulk(
+                Array.from(selectedKeys).map((str) => parseInt(str, 10)),
+                status
+            );
+        }
+    };
+
+    // delete bulk
+    const deleteBulk = (ids) => {
+
+        // delete bulk function
+        deleteUsersBulk(ids).then(() => {
+            refreshData("success", "Deleted");
+        }).catch((error) => {
+            headerMessage("error", error.response.data.error);
+        });
+
+    }
+
+    // handle delete bulk function
+    const handleDeleteBulk = (selectedKeys) => {
+        if (selectedKeys === 'all') { // if all items are selected
+            deleteBulk(data.map(item => item.id));
+        } else {
+            deleteBulk(
+                Array.from(selectedKeys).map((str) => parseInt(str, 10))
+            );
+        }
+    }
+
+    // ----------------------- DATA FETCHING FUNCTIONS -------------------------
+    // refresh data function
+    const refreshData = (type, message) => {
+
+        // success message
+        if (type === "success")
+            headerMessage(type, message);
+
+        // fetch data count from API
+        getUsersCount(searchColumn, searchFieldValue).then((response) => setPagesCount(response));
+
+        // fetch data from API
+        getUsers(rowsPerPage, currentPage, searchColumn, searchFieldValue)
+            .then(response => setData(response === null ? [] : response.length === 0 ? [] : response))
+            .catch(error => console.error(error));
+
+    }
+
+    // Fetch table data
+    const fetchTableData = (useCallback((page, key, val) => {
+
+        // fetch data count from API
+        getUsersCount(key, val).then((response) => setPagesCount(response));
+
+        // fetch data from API
+        getUsers(rowsPerPage, page, key, val)
+            .then(response => setData(response === null ? [] : response.length === 0 ? [] : response))
+            .catch(error => console.error(error));
+
+    }, [rowsPerPage]));
+
+    // useEffect to fetch data
+    useEffect(() => {
+        fetchTableData(currentPage, searchColumn, searchFieldValue);
+    }, [currentPage, fetchTableData, rowsPerPage]);
+
+
+    // ----------------------- DATE RANGE FUNCTIONS -------------------------
+    // date range change function
+    const onTimeRangeChange = (start, end) => {
+        if (start === null || end === null) {
+            fetchTableData(currentPage, searchColumn, searchFieldValue);
+        } else {
+            // get data count
+            getUsersByDatetimeCount(start, end, searchColumn, searchFieldValue).then((response) => setPagesCount(response));
+
+            // get data
+            getUsersByDatetime(rowsPerPage, currentPage, start, end, searchColumn, searchFieldValue).then(response => setData(response === null ? [] : response.length === 0 ? [] : response))
+        }
+    }
+
+
+    // ----------------------- STATUS CHANGE FUNCTIONS -------------------------
+    // status change function
+    const statusChange = (statusArray) => {
+        // get data count
+        getUsersByStatusCount(statusArray, searchColumn, searchFieldValue).then((response) => setPagesCount(response));
+
+        // get data
+        getUsersByStatus(rowsPerPage, currentPage, statusArray, searchColumn, searchFieldValue).then(response => setData(response === null ? [] : response.length === 0 ? [] : response))
+    }
+
+
+    // ----------------------- TABLE FUNCTIONS ------------------------- (NO NEED OF CHANGING)
+
+    // pagination functions -- NO NEED OF CHANGING
+    const setPage = (page) => { // set page
+        setCurrentPage(page);
+    }
+
+    // rows per page change function -- NO NEED OF CHANGING
+    const changeRowsPerPage = (count) => {
+        // get current top item
+        let currentTopItem = rowsPerPage * (currentPage - 1) + 1;
+
+        // set current page
+        if (currentTopItem > count) {
+            setCurrentPage(Math.ceil(currentTopItem / count));
+        }
+
+        // set rows per page
+        setRowsPerPage(count);
+    }
+
+    // sort change function -- NO NEED OF CHANGING
+    const changeSorting = (sort) => {
+        setSearchColumn(sort.column);
+    }
+
+    // useEffect to reset the page number -- NO NEED OF CHANGING
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchFieldValue]);
+
+
+    // ----------------------- RETURN ------------------------- (NO NEED OF CHANGING)
+
+    // return
+    return (
+        <>
+            {contextHolder}
+            <Table
+
+                // data and columns
+                data={data}
+                columns={columns}
+                init_cols={init_cols}
+
+                // fetch data functions
+                fetchTableData={fetchTableData}
+
+                // action buttons
+                actionButtons={actionButtons}
+                statusOptions={statusOptions}
+                menuButtons={menuButtons}
+
+                // status change
+                statusChange={statusChange}
+
+                // // edit model and functions
+                // editMenuButton={editMenuButton}
+                // editItemIsOpen={isOpen}
+                // editItemOnOpenChange={onOpenChange}
+                // editForm={<EditWebpageForm refreshData={refreshData}/>}
+
+                // search, sorting and filtering
+                searchColumn={searchColumn}
+                sortColumn={sortColumn}
+                dateColumn={dateColumn}
+                onTimeRangeChange={onTimeRangeChange}
+                searchFieldValue={[searchFieldValue, setSearchFieldValue]}
+                changeSorting={changeSorting}
+
+                // bulk actions
+                handleUpdateStatusBulk={handleUpdateStatusBulk}
+                handleDeleteBulk={handleDeleteBulk}
+
+                // pagination
+                setPage={setPage}
+                currentPage={currentPage}
+                dataCount={pagesCount}
+                rowsPerPage={rowsPerPage}
+                changeRowsPerPage={changeRowsPerPage}
+
+                // components
+                components={components}
+
+            />
+        </>
+    )
+}
