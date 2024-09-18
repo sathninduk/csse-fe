@@ -101,15 +101,15 @@ export default function LoginPage() {
                                     <div className={"w-full text-left"}>
                                         <div className={"md:grid grid-cols-1 md:gap-24"}>
                                             <div>
-                                                <img src={"/images/logos/verita-logo-white.png"}
+                                                <img src={"/images/logos/csse-logo-white.png"}
                                                      className={"w-1/2 sm:w-1/2 md:w-3/4 lg:w-full xl:w-3/5"}
-                                                     alt={"Verita Logo"}/>
+                                                     alt={"CSSE Logo"}/>
                                                 <h1 className={"dark:text-dark mt-3 text-md sm:text-lg mb-3 sm:mb-0"}>Sign
                                                     in</h1>
                                             </div>
                                             <div className={"hidden md:block"}>
                                                 <p style={{fontSize: "10px"}} className={"mb-2"}>
-                                                    © {new Date().getFullYear()} Verita. All rights reserved.
+                                                    © {new Date().getFullYear()} CSSE. All rights reserved.
                                                 </p>
                                                 <p style={{fontSize: "9px"}} className={"dark:text-darkSecondary"}>
                                                     Software Verification Technology.
@@ -154,7 +154,7 @@ export default function LoginPage() {
                                 </div>
                                 <div className={"block md:hidden text-center"}>
                                     <p style={{fontSize: "10px"}} className={"mb-2 mt-3 dark:text-darkSecondary"}>
-                                        © {new Date().getFullYear()} Verita. All rights reserved.
+                                        © {new Date().getFullYear()} CSSE. All rights reserved.
                                     </p>
                                 </div>
                             </div>

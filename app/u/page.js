@@ -76,12 +76,12 @@ export default function Dashboard() {
 
     async function handleInstallationCopyScript(id) {
         await navigator.clipboard.writeText(`
-            <!-- Verita Header -->
-            <script>const verita_key = "${id}";</script>
+            <!-- CSSE Header -->
+            <script>const csse_key = "${id}";</script>
             <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/axios@0.27.2/dist/axios.min.js"></script>
-            <script async id="verita_script" src="${Keys.CONNECTOR_URL}"></script>
-            <!-- Verita Header -->`);
+            <script async id="csse_script" src="${Keys.CONNECTOR_URL}"></script>
+            <!-- CSSE Header -->`);
     }
 
     return (
@@ -100,7 +100,7 @@ export default function Dashboard() {
                 <div className="flex justify-between items-center">
                     <div>
                         <h1 className={"text-2xl"}>
-                            Verita Platform
+                            CSSE Platform
                         </h1>
                         <p className={"text-darkSecondary text-xs"}>
                             Software Verification Technology

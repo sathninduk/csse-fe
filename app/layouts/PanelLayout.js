@@ -16,8 +16,8 @@ export default function PanelLayout({childrenBody}) {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     const logoSrc = isDarkMode
-        ? '/images/logos/verita-logo-white.png'
-        : '/images/logos/verita-logo-dark.png';
+        ? '/images/logos/csse-logo-white.png'
+        : '/images/logos/csse-logo-dark.png';
 
     return (
         <div>
@@ -41,7 +41,7 @@ export default function PanelLayout({childrenBody}) {
                                 </svg>
                             </button>
                             <Link href="/u" className="flex ms-9 md:ms-2 z-50">
-                                <img src={logoSrc} className="w-20 " alt="Verita Logo"/>
+                                <img src={logoSrc} className="w-20 " alt="CSSE Logo"/>
                             </Link>
                         </div>
                         <SearchBar className={"content-start"}/>
@@ -60,7 +60,7 @@ export default function PanelLayout({childrenBody}) {
                                         </p>
                                         <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
                                            role="none">
-                                            info@verita.io
+                                            info@csse.io
                                         </p>
                                     </div>
                                     <ul className="py-1" role="none">

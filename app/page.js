@@ -67,7 +67,7 @@ export default function Home() {
                             zIndex: 1
                         }}
                     >
-                        Verita
+                        CSSE
                     </h1>
 
                     <p
@@ -89,9 +89,9 @@ export default function Home() {
                         <div className={"wave ai-wave-2 hidden md:block"}/>
                         <div className={"wave ai-wave-3 hidden md:block"}/>
                         <div className={`${styles.center}`}>
-                            <Image src="/images/logos/verita-icon-black-120.png"
+                            <Image src="/images/logos/csse-icon-black-120.png"
                                    className={"fade-in main-img-overwrites wave ai-wave-2-2"}
-                                   alt="Verita Logo"
+                                   alt="CSSE Logo"
                                    width={120}
                                    height={120}
                                    priority
@@ -105,7 +105,7 @@ export default function Home() {
             <div className={"section-2 mt-12 md:mt-0 pt-36 pb-16 pl-8 pr-8 md:pl-48 md:pr-48"}>
                 <div className={"container mb-0"} style={{lineHeight: "1"}}>
                     <h1 className={"p-3 md:p-0"} style={{fontSize: "36px"}}>
-                        Verita do care about web
+                        CSSE
                     </h1>
                     <h1 className={"p-3 md:p-0"} style={{fontSize: "64px"}}>data</h1>
                 </div>
@@ -114,7 +114,7 @@ export default function Home() {
                         <div className={"flow-block"}>
                             Static Data
                             <p className={"text-xs text-darkSecondary pt-3"}>
-                                Verita manages and delivers static data in a distributed under ultra low latency.
+                                CSSE manages and delivers static data in a distributed under ultra low latency.
                             </p>
                         </div>
                     </div>
@@ -122,7 +122,7 @@ export default function Home() {
                         <div className={"flow-block"}>
                             Personalized Data
                             <p className={"text-xs text-darkSecondary pt-3"}>
-                                Verita provides personalization data for an enhanced user experience.
+                                CSSE provides personalization data for an enhanced user experience.
                             </p>
                         </div>
                     </div>
@@ -130,7 +130,7 @@ export default function Home() {
                         <div className={"flow-block"}>
                             Data Crawling
                             <p className={"text-xs text-darkSecondary pt-3"}>
-                                Verita provides updated data for search engine crawlers through Verita API.
+                                CSSE provides updated data for search engine crawlers through CSSE API.
                             </p>
                         </div>
                     </div>
@@ -141,13 +141,13 @@ export default function Home() {
             <div className={"section-4 pt-4 md:pt-12 pb-14 pl-8 pr-8 md:pl-48 md:pr-48"}>
                 <div className={"container"} style={{lineHeight: "1"}}>
                     <h1 style={{fontSize: "36px"}}>
-                        Verita integrates
+                        CSSE integrates
                     </h1>
                     <h1 style={{fontSize: "64px"}}> all web needs</h1>
                 </div>
                 <p className={"mt-12 text-darkSecondary"}>
-                    Verita introduces the world&apos;s first distributed static data technology, revolutionizing web data
-                    delivery. Moreover, Verita offers an all-in-one web addons platform for web developers, encompassing
+                    CSSE introduces the world&apos;s first distributed static data technology, revolutionizing web data
+                    delivery. Moreover, CSSE offers an all-in-one web addons platform for web developers, encompassing
                     web chat services, web analytics, and more in the forthcoming updates. With this integrated
                     platform, managing all your web requirements becomes effortless.
                 </p>
@@ -155,7 +155,7 @@ export default function Home() {
 
             <div className={"section-4 pt-24 pb-36 pl-8 pr-8 md:pl-48 md:pr-48"}>
                 <h1 style={{fontSize: "36px", textAlign: "center"}}>
-                    Verita enhances your web...
+                    CSSE enhances your web...
                 </h1>
             </div>
 

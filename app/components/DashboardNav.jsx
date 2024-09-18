@@ -31,15 +31,15 @@ export default function DashboardNav() {
     }, []);
 
     const logoSrc = isDarkMode
-        ? '/images/logos/verita-logo-white.png'
-        : '/images/logos/verita-logo-dark.png';
+        ? '/images/logos/csse-logo-white.png'
+        : '/images/logos/csse-logo-dark.png';
 
     return (
         <>
             <div className={`w-full bg-dark p-4 md:pr-12 md:pl-12 fixed z-50 ${scrolled ? " shadow-xl" : ""}`}>
                 <div className={"flex justify-between"}>
                     <Link href="/" className="flex z-50 items-center">
-                        <img src={logoSrc} className="w-20" alt="Verita Logo"/>
+                        <img src={logoSrc} className="w-20" alt="CSSE Logo"/>
                     </Link>
                     <div className={"flex items-center gap-2"}>
                         <SettingsButton/>

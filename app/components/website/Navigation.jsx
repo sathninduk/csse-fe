@@ -26,8 +26,8 @@ export default function Navigation() {
     }, []);
 
     const logoSrc = scrolled
-        ? '/images/logos/verita-logo-white.png'
-        : '/images/logos/verita-logo-dark.png';
+        ? '/images/logos/csse-logo-white.png'
+        : '/images/logos/csse-logo-dark.png';
 
     return (
         <>
@@ -39,7 +39,7 @@ export default function Navigation() {
             >
                 <div className={"flex justify-between"}>
                     <a href="/" className="flex z-50 items-center">
-                        <img src={logoSrc} className="w-20" alt="Verita Logo"/>
+                        <img src={logoSrc} className="w-20" alt="CSSE Logo"/>
                     </a>
                     <div className={"flex items-center gap-4 md:gap-8"}>
                         <a href={"/login"} className={`${scrolled ? "text-dark" : "text-light"} text-xs`}>

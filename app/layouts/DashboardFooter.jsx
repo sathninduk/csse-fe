@@ -10,8 +10,8 @@ export default function DashboardFooter() {
     const [isDarkMode, toggleDarkMode] = useDarkMode();
 
     const logoSrc = isDarkMode
-        ? '/images/logos/verita-logo-white.png'
-        : '/images/logos/verita-logo-dark.png';
+        ? '/images/logos/csse-logo-white.png'
+        : '/images/logos/csse-logo-dark.png';
 
     return (
         <div className={"w-full p-6 pr-12 pl-12 dark:bg-secondaryDark grid grid-cols-1 gap-4 md:gap-0"}
@@ -22,7 +22,7 @@ export default function DashboardFooter() {
         >
             <div className={"grid text-center md:text-left grid-cols-1 md:grid-cols-2"}>
                 <p style={{fontSize: "11px", color: "#fff"}} className={"mb-2"}>
-                    &copy; {new Date().getFullYear()} Verita. All rights reserved.
+                    &copy; {new Date().getFullYear()} CSSE. All rights reserved.
                 </p>
                 <p style={{fontSize: "10px"}} className={"dark:text-darkTernary md:text-right"}>
                     <Link href={"/privacy"}>Privacy Policy</Link>
@@ -38,7 +38,7 @@ export default function DashboardFooter() {
                     <Link href={"https://github.com/sathninduk"}>
                         <GithubOutlined className={"pr-2 pl-2"}/>
                     </Link>
-                    <a href={"mailto:info@verita.io"}>
+                    <a href={"mailto:info@csse.io"}>
                         <MailOutlined className={"pr-2 pl-2"}/>
                     </a>
                 </p>
