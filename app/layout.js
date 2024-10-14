@@ -2,7 +2,7 @@ import {Plus_Jakarta_Sans} from "next/font/google";
 import "./globals.css";
 import React from "react";
 import {ConfigProvider} from "antd";
-import {darkAlgorithm} from "@/ant.config";
+import {lightAlgorithm} from "@/ant.config";
 
 const plus_Jakarta_Sans = Plus_Jakarta_Sans({
     subsets: ["latin"],
@@ -22,7 +22,7 @@ export default function RootLayout({children}) {
         <body className={`${plus_Jakarta_Sans.className} font-normal dark`}>
         <ConfigProvider
             theme={{
-                token: darkAlgorithm
+                token: lightAlgorithm
             }}
         >
             {children}
